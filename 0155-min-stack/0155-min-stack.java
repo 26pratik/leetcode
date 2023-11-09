@@ -12,15 +12,18 @@ class MinStack {
     }
     
     public void push(int val) {
-        min = Math.min(min, val);
         stack1.push(val);
-        stack2.push(min);
+        if(val <= min) {
+            stack2.push(min);
+            min = val;
+        }
+        
     }
     
     public void pop() {
-        stack1.pop();
-        stack2.pop();
-        min = stack2.peek();
+        
+        if(stack1.pop() == min) 
+            min = stack2.pop();
     }
     
     public int top() {
