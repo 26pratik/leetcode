@@ -2,28 +2,22 @@ class MinStack {
 
     int min;
     Stack<Integer> stack1;
-    Stack<Integer> stack2;
     
     public MinStack() {
         this.min = Integer.MAX_VALUE;
         stack1 = new Stack<>();
-        stack2 = new Stack<>();
-        stack2.push(min);
     }
     
     public void push(int val) {
-        stack1.push(val);
-        if(val <= min) {
-            stack2.push(min);
-            min = val;
-        }
-        
+        stack1.push(min);
+        stack1.push(val);     
+        min = Math.min(min, val);
     }
     
     public void pop() {
-        
-        if(stack1.pop() == min) 
-            min = stack2.pop();
+
+        stack1.pop();
+        min = stack1.pop();
     }
     
     public int top() {
