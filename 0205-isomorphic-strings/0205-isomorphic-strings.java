@@ -7,8 +7,8 @@ class Solution {
         
         Map<Character, Character> sMap = new HashMap<>();
         Set<Character> tSet = new HashSet<>();
-        char[] sArr = new char[256];
-        char[] tArr = new char[256];
+        char[] sArr = new char[224];
+        char[] tArr = new char[224];
         
         for(int i=0; i<s.length(); i++) {
             
