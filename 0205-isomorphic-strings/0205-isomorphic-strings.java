@@ -1,4 +1,4 @@
-// Solution using 1 HashMap
+// Solution using 1 HashMap, 1 HashSet
 class Solution {
     public boolean isIsomorphic(String s, String t) {
         
@@ -6,6 +6,7 @@ class Solution {
         if(s.length() != t.length()) return false;
         
         Map<Character, Character> sMap = new HashMap<>();
+        Set<Character> tSet = new HashSet<>();
         
         for(int i=0; i<s.length(); i++) {
             
@@ -16,7 +17,8 @@ class Solution {
                 if(sMap.get(sChar) != tChar) return false;
             }
             else {
-                if(sMap.containsValue(tChar)) return false;
+                if(tSet.contains(tChar)) return false;
+                tSet.add(tChar);
                 sMap.put(sChar, tChar);
             }
         }
