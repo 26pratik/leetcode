@@ -5,8 +5,6 @@ class Solution {
         if(s == null || t == null) return false;
         if(s.length() != t.length()) return false;
         
-        Map<Character, Character> sMap = new HashMap<>();
-        Set<Character> tSet = new HashSet<>();
         char[] sArr = new char[224];
         char[] tArr = new char[224];
         
