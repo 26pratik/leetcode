@@ -10,7 +10,7 @@ class Solution {
         
         for(String s : strs) { //O(n)
 
-            double key = getHash(s);
+            double key = getHash(s); //O(k)
             
             if(!map.containsKey(key))
                 map.put(key, new ArrayList<>());
@@ -25,7 +25,6 @@ class Solution {
         
         double hash = 1d;
         
-        //O(k)
         for(char ch : s.toCharArray())
             hash *= primeArr[ch - 'a'];
         
