@@ -1,3 +1,4 @@
+// 1 HashMap, 1 HashSet
 class Solution {
     public boolean wordPattern(String pattern, String s) {
         
