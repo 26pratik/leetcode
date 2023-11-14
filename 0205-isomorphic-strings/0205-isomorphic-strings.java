@@ -1,4 +1,4 @@
-// Solution using 1 HashMap, 1 HashSet
+// Solution using 2 arrays
 class Solution {
     public boolean isIsomorphic(String s, String t) {
         
@@ -7,19 +7,21 @@ class Solution {
         
         Map<Character, Character> sMap = new HashMap<>();
         Set<Character> tSet = new HashSet<>();
+        char[] sArr = new char[256];
+        char[] tArr = new char[256];
         
         for(int i=0; i<s.length(); i++) {
             
             char sChar = s.charAt(i);
             char tChar = t.charAt(i);
             
-            if(sMap.containsKey(sChar)) {
-                if(sMap.get(sChar) != tChar) return false;
+            if(sArr[sChar-' '] != 0) {
+                if(sArr[sChar-' '] != tChar) return false;
             }
             else {
-                if(tSet.contains(tChar)) return false;
-                tSet.add(tChar);
-                sMap.put(sChar, tChar);
+                if(tArr[tChar-' '] != 0) return false;
+                tArr[tChar-' '] = tChar;
+                sArr[sChar-' '] = tChar;
             }
         }
         
