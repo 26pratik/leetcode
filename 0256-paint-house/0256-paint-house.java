@@ -4,21 +4,33 @@ class Solution {
         if(costs == null || costs.length == 0) return 0;
         int m = costs.length;
         
-        int[] dp = new int[3];
-        
-        dp[0] = costs[0][0];
-        dp[1] = costs[0][1];
-        dp[2] = costs[0][2];
+        int red = costs[0][0];
+        int blue = costs[0][1];
+        int green = costs[0][2];
         
         for(int i=1; i<m; i++) {
-            int tempR = dp[0];
-            int tempB = dp[1];
-            dp[0] = costs[i][0] + Math.min(tempB, dp[2]);
-            dp[1] = costs[i][1] + Math.min(tempR, dp[2]);
-            dp[2] = costs[i][2] + Math.min(tempR, tempB);
-        }  
+            int tempR = red;
+            int tempB = blue;
+            red = costs[i][0] + Math.min(tempB, green);
+            blue = costs[i][1] + Math.min(tempR, green);
+            green = costs[i][2] + Math.min(tempR, tempB);
+        } 
         
-        return Math.min(dp[0], Math.min(dp[1], dp[2]));  
+//         int[] dp = new int[3];
+        
+//         dp[0] = costs[0][0];
+//         dp[1] = costs[0][1];
+//         dp[2] = costs[0][2];
+        
+//         for(int i=1; i<m; i++) {
+//             int tempR = dp[0];
+//             int tempB = dp[1];
+//             dp[0] = costs[i][0] + Math.min(tempB, dp[2]);
+//             dp[1] = costs[i][1] + Math.min(tempR, dp[2]);
+//             dp[2] = costs[i][2] + Math.min(tempR, tempB);
+//         }          
+        
+        return Math.min(red, Math.min(blue, green));  
 //         int n = costs[0].length;        
 //         int[][] dp = new int[m][n];
         
