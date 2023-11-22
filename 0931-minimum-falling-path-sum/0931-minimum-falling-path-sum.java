@@ -18,7 +18,7 @@ class Solution {
                     dp[i][j] = matrix[i][j] + Math.min(dp[i+1][j], Math.min(dp[i+1][j-1], dp[i+1][j+1]));
             }
         }
-        System.out.println(Arrays.deepToString(dp));
+
         int min = dp[0][0];
         for(int i=1; i<n; i++)
             min = Math.min(min, dp[0][i]);
