@@ -4,12 +4,11 @@ class Solution {
         int row = 0, col = 0, m = mat.length, n = mat[0].length;
         int[] result = new int[m*n];
         boolean dirUp = true;
-        
-        result[0] = mat[row][col];
+
         for(int i=0; i<m*n; i++) {
+            result[i] = mat[row][col];
+            
             if(dirUp) {
-                result[i] = mat[row][col];
-                
                 if(row == 0 || col == n-1) {
                     dirUp = false;
                     if(row == 0)
@@ -26,8 +25,6 @@ class Solution {
                 }
             }
             else {
-                result[i] = mat[row][col];
-
                 if(col == 0 || row == m-1) {
                     dirUp = true;
                     if(col == 0)
