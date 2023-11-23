@@ -14,22 +14,16 @@ class Solution {
     
     private void twoSum(int[] nums, int i, List<List<Integer>> result) {
         
-        int low = i+1, high = nums.length-1;
+        Set<Integer> set = new HashSet<>();
         
-        while(low < high) {
-            int sum = nums[i] + nums[low] + nums[high];
-            
-            if(sum == 0) {
-                result.add(Arrays.asList(nums[i], nums[low], nums[high]));
-                low++;
-                high--;
-                while(low < high && nums[low] == nums[low-1])
-                    low++;
+        for(int j=i+1; j<nums.length; j++) {
+            int complement = -nums[i]-nums[j];
+            if(set.contains(complement)) {
+                result.add(Arrays.asList(nums[i], nums[j], complement));                
+                while(j+1 < nums.length && nums[j] == nums[j+1])
+                    j++;
             }
-            else if(sum < 0)
-                low++;
-            else
-                high--;
+            set.add(nums[j]);
         }
     }
 }
