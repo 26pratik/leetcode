@@ -23,11 +23,11 @@ class Solution {
             }
         }
 
-        if(m > 0) {
-            for(int i = high; i>=0; i--) {
-                nums1[i] = nums1[m-1];
-                m--;
-            }
-        }
+        // if(m > 0) {
+        //     for(int i = high; i>=0; i--) {
+        //         nums1[i] = nums1[m-1];
+        //         m--;
+        //     }
+        // }
     }
 }
