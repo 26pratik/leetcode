@@ -32,8 +32,6 @@ class Solution {
             return false;     
         prev = root;
         
-        boolean right = validate(root.right);
-        
-        return right;
+        return validate(root.right);
     }
 }
