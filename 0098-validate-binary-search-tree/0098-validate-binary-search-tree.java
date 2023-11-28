@@ -30,6 +30,7 @@ class Solution {
     private void validate(TreeNode root) {
         
         if(root == null) return;
+        if(!flag) return;
         
         validate(root.left);
         
