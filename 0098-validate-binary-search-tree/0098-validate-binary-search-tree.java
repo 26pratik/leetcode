@@ -16,30 +16,24 @@
 class Solution {
     
     TreeNode prev;
-    boolean flag;
     
     public boolean isValidBST(TreeNode root) {
         
-        this.flag = true;
-        
-        validate(root);
-        
-        return flag;
+        return validate(root);
     }
     
-    private void validate(TreeNode root) {
+    private boolean validate(TreeNode root) {
         
-        if(root == null || !flag) return;
+        if(root == null ) return true;
         
-        validate(root.left);
+        if(!validate(root.left)) return false;
         
-        if(prev != null && prev.val >= root.val) {
-            flag = false;
-            return;
-        }
-        
+        if(prev != null && prev.val >= root.val) 
+            return false;     
         prev = root;
         
-        validate(root.right);
+        boolean right = validate(root.right);
+        
+        return right;
     }
 }
