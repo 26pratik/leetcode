@@ -15,23 +15,21 @@
  */
 class Solution {
     
-    TreeNode prev;
-    
     public boolean isValidBST(TreeNode root) {
         
-        return validate(root);
+        return validate(root, new TreeNode[1]);
     }
     
-    private boolean validate(TreeNode root) {
+    private boolean validate(TreeNode root, TreeNode[] prev) {
         
         if(root == null ) return true;
         
-        if(!validate(root.left)) return false;
+        if(!validate(root.left, prev)) return false;
         
-        if(prev != null && prev.val >= root.val) 
+        if(prev[0] != null && prev[0].val >= root.val) 
             return false;     
-        prev = root;
+        prev[0] = root;
         
-        return validate(root.right);
+        return validate(root.right, prev);
     }
 }
