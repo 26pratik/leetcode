@@ -32,8 +32,8 @@ class Solution {
         
         if(root == null) return;
         
+        path.add(root.val);
         sum += root.val;
-        path.add(root.val);  
         
         if(root.left == null && root.right == null) {
             if(sum == targetSum)
