@@ -30,18 +30,16 @@ class Solution {
         
         if(root == null) return;
         
-        List<Integer> path1 = new ArrayList<>(path);
-        
         sum += root.val;
-        path1.add(root.val);  
+        path.add(root.val);  
         
         if(root.left == null && root.right == null) {
             if(sum == targetSum)
-                result.add(path1);
+                result.add(path);
             return;
         }
         
-        helper(root.left, targetSum, sum, path1);
-        helper(root.right, targetSum, sum, path1);
+        helper(root.left, targetSum, sum, new ArrayList<>(path));
+        helper(root.right, targetSum, sum, new ArrayList<>(path));
     }
 }
