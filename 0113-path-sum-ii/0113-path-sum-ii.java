@@ -16,17 +16,19 @@
 class Solution {
     
     List<List<Integer>> result;
+    List<Integer> path;
     
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
         
-        this.result = new ArrayList<>();
+        result = new ArrayList<>();
+        path = new ArrayList<>();
         
-        helper(root, targetSum, 0, new ArrayList<>());
+        helper(root, targetSum, 0);
         
         return result;
     }
     
-    private void helper(TreeNode root, int targetSum, int sum, List<Integer> path) {
+    private void helper(TreeNode root, int targetSum, int sum) {
         
         if(root == null) return;
         
@@ -35,11 +37,14 @@ class Solution {
         
         if(root.left == null && root.right == null) {
             if(sum == targetSum)
-                result.add(path);
+                result.add(new ArrayList<>(path));
+            path.remove(path.size()-1);
             return;
         }
         
-        helper(root.left, targetSum, sum, new ArrayList<>(path));
-        helper(root.right, targetSum, sum, new ArrayList<>(path));
+        helper(root.left, targetSum, sum);
+        helper(root.right, targetSum, sum);
+        
+        path.remove(path.size()-1);
     }
 }
