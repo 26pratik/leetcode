@@ -27,12 +27,10 @@ class Solution {
             fast = fast.next;
         }
         
-        // Line 1 and 2 are needed for garbage collection. 
-        // ListNode temp = slow.next;           //Line 1
+        ListNode temp = slow.next;
         slow.next = slow.next.next;
-        // temp.next = null;                    //Line 2
+        temp.next = null;
         
-        // return head;                      WILL NOT WORK IN EXAMPLE 2 -> input: head = [1], n = 1, OUTPUT: []
         return dummy.next;
     }
 }
