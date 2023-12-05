@@ -13,6 +13,9 @@
  *     }
  * }
  */
+//TC: O(n)
+//SC: O(n/2) -> O(n)
+//BFS
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
         
