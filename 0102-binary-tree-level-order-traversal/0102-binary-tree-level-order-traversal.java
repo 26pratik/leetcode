@@ -14,7 +14,7 @@
  * }
  */
 //TC: O(n)
-//SC: O(h)
+//SC: O(log n)
 //DFS
 class Solution {
     
