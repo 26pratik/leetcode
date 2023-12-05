@@ -14,8 +14,8 @@
  * }
  */
 //TC: O(n)
-//SC: O(n/2) -> O(n)
-//BFS
+//SC: O(h)
+//DFS
 class Solution {
     
     List<List<Integer>> result = new ArrayList<>();
