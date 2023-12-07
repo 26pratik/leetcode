@@ -34,7 +34,7 @@ class Solution {
     private void helper(TreeNode root, int level, TreeNode parent) {
         
         if(root == null) return;
-        
+        if(xLevel != -1 && yLevel != -2) return;
         if(root.left != null && root.right != null) {
             if(root.left.val == x && root.right.val == y) return;
             if(root.left.val == y && root.right.val == x) return;
