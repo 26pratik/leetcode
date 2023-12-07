@@ -13,7 +13,7 @@
  *     }
  * }
  */
-//BFS
+//DFS with left first
 class Solution {
     
     List<Integer> result;
@@ -30,8 +30,10 @@ class Solution {
         
         if(result.size() == depth)
             result.add(root.val);
-        
-        helper(root.right, depth+1);
+        else
+            result.set(depth, root.val);
+
         helper(root.left, depth+1);
+        helper(root.right, depth+1);
     }
 }
