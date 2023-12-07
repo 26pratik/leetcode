@@ -14,46 +14,39 @@
  * }
  */
 class Solution {
+    
+    int x;
+    int y;
+    int xLevel;
+    int yLevel;
     public boolean isCousins(TreeNode root, int x, int y) {
         
-        Queue<TreeNode> q = new LinkedList<>();
+        this.x = x;
+        this.y = y;
+        this.xLevel = -1;
+        this.yLevel = -2;
         
-        boolean xFound = false;
-        boolean yFound = false;
-        TreeNode xParent = null;
-        TreeNode yParent = null;
+        helper(root, 0, null);
         
-        q.add(root);
+        return xLevel == yLevel;
+    }
+    
+    private void helper(TreeNode root, int level, TreeNode parent) {
         
-        while(!q.isEmpty()) {
-
-            int size = q.size();
-            
-            for(int i=0; i<size; i++) {
-                TreeNode node = q.poll();   
-
-                if(node.val == x) 
-                    xFound = true;
-                
-                if(node.val == y) 
-                    yFound = true;
-                
-                if(node.left != null && node.right != null) {
-                    if(node.left.val == x && node.right.val == y) return false;
-                    if(node.left.val == y && node.right.val == x) return false;
-                }
-                
-                if(node.left != null) 
-                    q.add(node.left);
-                
-                if(node.right != null) 
-                    q.add(node.right);
-            }
-
-            if(xFound && yFound) return true;
-            if(xFound || yFound) return false;            
+        if(root == null) return;
+        
+        if(root.left != null && root.right != null) {
+            if(root.left.val == x && root.right.val == y) return;
+            if(root.left.val == y && root.right.val == x) return;
         }
+
+        if(root.val == x)
+            xLevel = level;
         
-        return false;
+        if(root.val == y)
+            yLevel = level;
+        
+        helper(root.left, level+1, root);
+        helper(root.right, level+1, root);
     }
 }
