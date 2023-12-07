@@ -17,7 +17,6 @@ class Solution {
     public boolean isCousins(TreeNode root, int x, int y) {
         
         Queue<TreeNode> q = new LinkedList<>();
-        Queue<TreeNode> parentQ = new LinkedList<>();
         
         boolean xFound = false;
         boolean yFound = false;
@@ -32,30 +31,26 @@ class Solution {
             
             for(int i=0; i<size; i++) {
                 TreeNode node = q.poll();   
-                TreeNode parent = parentQ.poll();
-                
-                if(node.val == x) {
+
+                if(node.val == x) 
                     xFound = true;
-                    xParent = parent;
-                }
                 
-                if(node.val == y) {
+                if(node.val == y) 
                     yFound = true;
-                    yParent = parent;
+                
+                if(node.left != null && node.right != null) {
+                    if(node.left.val == x && node.right.val == y) return false;
+                    if(node.left.val == y && node.right.val == x) return false;
                 }
                 
-                if(node.left != null) {
+                if(node.left != null) 
                     q.add(node.left);
-                    parentQ.add(node);
-                }
                 
-                if(node.right != null) {
+                if(node.right != null) 
                     q.add(node.right);
-                    parentQ.add(node);
-                }
             }
 
-            if(xFound && yFound) return xParent != yParent;
+            if(xFound && yFound) return true;
             if(xFound || yFound) return false;            
         }
         
