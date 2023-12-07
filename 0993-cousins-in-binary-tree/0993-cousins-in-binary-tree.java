@@ -19,32 +19,37 @@ class Solution {
     int y;
     int xLevel;
     int yLevel;
+    TreeNode xParent;
+    TreeNode yParent;
+    
     public boolean isCousins(TreeNode root, int x, int y) {
         
         this.x = x;
         this.y = y;
         this.xLevel = -1;
-        this.yLevel = -2;
+        this.yLevel = -1;
+        this.xParent = null;
+        this.yParent = null;
         
         helper(root, 0, null);
         
-        return xLevel == yLevel;
+        return xLevel == yLevel && xParent != yParent;
     }
     
     private void helper(TreeNode root, int level, TreeNode parent) {
         
         if(root == null) return;
-        if(xLevel != -1 && yLevel != -2) return;
-        if(root.left != null && root.right != null) {
-            if(root.left.val == x && root.right.val == y) return;
-            if(root.left.val == y && root.right.val == x) return;
-        }
+        if(xLevel != -1 && yLevel != -1) return;
 
-        if(root.val == x)
+        if(root.val == x) {
             xLevel = level;
+            xParent = parent;    
+        }
         
-        if(root.val == y)
+        if(root.val == y) {
             yLevel = level;
+            yParent = parent;    
+        }
         
         helper(root.left, level+1, root);
         helper(root.right, level+1, root);
