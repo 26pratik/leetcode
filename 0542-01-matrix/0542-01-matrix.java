@@ -17,22 +17,17 @@ class Solution {
         }
         
         while(!q.isEmpty()) {
-            int size = q.size();
-            
-            for(int i=0; i<size; i++) {
-                int[] curr = q.poll();
-                
-                for(int[] dir: dirs) {
-                    int row = curr[0] + dir[0];
-                    int col = curr[1] + dir[1];
-                    
-                    if(row>=0 && col>=0 && row<m && col<n && mat[row][col] == -1) {
-                        mat[row][col] = dist;
-                        q.add(new int[]{row, col});
-                    }
+            int[] curr = q.poll();
+
+            for(int[] dir: dirs) {
+                int row = curr[0] + dir[0];
+                int col = curr[1] + dir[1];
+
+                if(row>=0 && col>=0 && row<m && col<n && mat[row][col] == -1) {
+                    mat[row][col] = mat[curr[0]][curr[1]] + 1;
+                    q.add(new int[]{row, col});
                 }
             }
-            dist++;
         }
         
         return mat;
