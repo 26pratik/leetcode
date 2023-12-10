@@ -15,8 +15,7 @@ class Solution {
         for(int i=0; i<m; i++) {      
             HashSet<Character> set = new HashSet<>();    
             for(int j=0; j<n; j++)
-                if(!check(board[i][j], set))
-                    return false;
+                if(!check(board[i][j], set)) return false;
         }      
         return true;
     }
@@ -26,8 +25,7 @@ class Solution {
         for(int i=0; i<m; i++) {
             HashSet<Character> set = new HashSet<>(); 
             for(int j=0; j<n; j++)
-                if(!check(board[j][i], set))
-                    return false;
+                if(!check(board[j][i], set)) return false;
         }  
         return true;        
     }
@@ -39,18 +37,15 @@ class Solution {
                 HashSet<Character> set = new HashSet<>();
                 for(int i=a; i<a+3; i++)
                     for(int j=b; j<b+3; j++) 
-                        if(!check(board[i][j], set))
-                            return false;
+                        if(!check(board[i][j], set)) return false;
             }  
         return true;
     }
     
     private boolean check(char c, HashSet<Character> set) {
         if(c != '.')
-            if(set.contains(c))
-                return false;
-            else
-                set.add(c);
+            if(set.contains(c)) return false;
+            else set.add(c);
         return true;
     }
 }
