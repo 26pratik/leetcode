@@ -1,46 +1,36 @@
 class Solution {
-    public boolean isValidSudoku(char[][] board) {
-        int N = 9;
-
-        // Use hash set to record the status
-        HashSet<Character>[] rows = new HashSet[N];
-        HashSet<Character>[] cols = new HashSet[N];
-        HashSet<Character>[] boxes = new HashSet[N];
-        for (int r = 0; r < N; r++) {
-            rows[r] = new HashSet<Character>();
-            cols[r] = new HashSet<Character>();
-            boxes[r] = new HashSet<Character>();
-        }
-
-        for (int r = 0; r < N; r++) {
-            for (int c = 0; c < N; c++) {
-                char val = board[r][c];
-
-                // Check if the position is filled with number
-                if (val == '.') {
-                    continue;
-                }
-
-                // Check the row
-                if (rows[r].contains(val)) {
-                    return false;
-                }
-                rows[r].add(val);
-
-                // Check the column
-                if (cols[c].contains(val)) {
-                    return false;
-                }
-                cols[c].add(val);
-
-                // Check the box
-                int idx = (r / 3) * 3 + c / 3;
-                if (boxes[idx].contains(val)) {
-                    return false;
-                }
-                boxes[idx].add(val);
+    public boolean isValidSudoku(char[][] board) {      
+        if(checkRowCol(board) && checkCells(board)) return true;     
+        return false;
+    }
+    
+    private boolean checkRowCol(char[][] board) {      
+        for(int i=0; i<9; i++) {      
+            HashSet<Character> rowSet = new HashSet<>(); 
+            HashSet<Character> colSet = new HashSet<>(); 
+            for(int j=0; j<9; j++) {
+                if(!check(board[i][j], rowSet)) return false;
+                if(!check(board[j][i], colSet)) return false;
             }
-        }
+        }      
+        return true;
+    }
+    
+    private boolean checkCells(char[][] board) { 
+        for(int a=0; a<9; a+=3)
+            for(int b=0; b<9; b+=3) { 
+                HashSet<Character> set = new HashSet<>();
+                for(int i=a; i<a+3; i++)
+                    for(int j=b; j<b+3; j++) 
+                        if(!check(board[i][j], set)) return false;
+            }  
+        return true;
+    }
+    
+    private boolean check(char c, HashSet<Character> set) {
+        if(c != '.')
+            if(set.contains(c)) return false;
+            else set.add(c);
         return true;
     }
 }
