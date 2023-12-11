@@ -14,34 +14,19 @@
  * }
  */
 class Solution {
-    
-    boolean flag;
     public boolean isSymmetric(TreeNode root) {
         
-        this.flag = true;
-        
-        dfs(root.left, root.right);
-        
-        return flag;
+        return dfs(root.left, root.right);
     }
     
-    private void dfs(TreeNode left, TreeNode right) {
+    private boolean dfs(TreeNode left, TreeNode right) {
         
-        if(left == null && right == null) return;
-        if(left == null || right == null) {
-            flag = false;
-            return;
-        }
+        if(left == null && right == null) return true;
+        if(left == null || right == null) return false;
         
-        if(left.val != right.val) {
-            flag = false;
-            return;
-        }
-        
-        if(flag)
-            dfs(left.left, right.right);
-        
-        if(flag)
-            dfs(left.right, right.left);
+        if(left.val != right.val) return false;
+
+        if(!dfs(left.left, right.right)) return false;
+        return dfs(left.right, right.left);
     }
 }
