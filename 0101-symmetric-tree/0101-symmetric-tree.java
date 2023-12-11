@@ -14,27 +14,34 @@
  * }
  */
 class Solution {
+    
+    boolean flag;
     public boolean isSymmetric(TreeNode root) {
         
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root.left);
-        q.add(root.right);
+        this.flag = true;
         
-        while(!q.isEmpty()) {
-            TreeNode node1 = q.poll();
-            TreeNode node2 = q.poll();
-            
-            if(node1 == null && node2 == null) continue;
-            if(node1 == null || node2 == null) return false;
-            
-            if(node1.val != node2.val) return false;
-            
-            q.add(node1.left);
-            q.add(node2.right);
-            q.add(node1.right);
-            q.add(node2.left);
+        dfs(root.left, root.right);
+        
+        return flag;
+    }
+    
+    private void dfs(TreeNode left, TreeNode right) {
+        
+        if(left == null && right == null) return;
+        if(left == null || right == null) {
+            flag = false;
+            return;
         }
         
-        return true;
+        if(left.val != right.val) {
+            flag = false;
+            return;
+        }
+        
+        if(flag)
+            dfs(left.left, right.right);
+        
+        if(flag)
+            dfs(left.right, right.left);
     }
 }
