@@ -25,14 +25,11 @@ class Solution {
         int level = 0;
         while(!q.isEmpty()) {
             int size = q.size();
-            
+            int max = Integer.MIN_VALUE;
             for(int i=0; i<size; i++) {
                 TreeNode node = q.poll();
-                
-                if(result.size() == level) 
-                    result.add(node.val);
-                else
-                    result.set(level, Math.max(node.val, result.get(level)));
+
+                max = Math.max(max, node.val);
                 
                 if(node.left != null) 
                     q.add(node.left);
@@ -40,7 +37,7 @@ class Solution {
                 if(node.right != null)
                     q.add(node.right);
             }
-            level++;
+            result.add(max);
         }
         
         return result;
