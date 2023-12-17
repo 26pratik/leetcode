@@ -21,11 +21,12 @@ class Solution {
         //logic
         for(int i=pivot; i<candidates.length; i++) {
             //action
-            path.add(candidates[i]);
+            List<Integer> li = new ArrayList<>(path);
+            li.add(candidates[i]);
             //recurse
-            helper(candidates, target-candidates[i], i, path);
+            helper(candidates, target-candidates[i], i, li);
             //backtrack
-            path.remove(path.size()-1);    
+            // path.remove(path.size()-1);    
         }
     }
 }
