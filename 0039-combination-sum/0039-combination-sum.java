@@ -20,9 +20,11 @@ class Solution {
         }
         
         //logic
-        helper(candidates, target, i+1, new ArrayList<>(path));
         
-        path.add(candidates[i]);
-        helper(candidates, target-candidates[i], i, new ArrayList<>(path));
+        List<Integer> li = new ArrayList<>(path);
+        li.add(candidates[i]);
+        helper(candidates, target-candidates[i], i, li);
+        
+        helper(candidates, target, i+1, new ArrayList<>(path));
     }
 }
