@@ -15,16 +15,19 @@ class Solution {
         if(target < 0 || i == candidates.length) return;
         
         if(target == 0) {
-            result.add(path);
+            result.add(new ArrayList<>(path));
             return;
         }
         
         //logic
         
-        List<Integer> li = new ArrayList<>(path);
-        li.add(candidates[i]);
-        helper(candidates, target-candidates[i], i, li);
         
-        helper(candidates, target, i+1, new ArrayList<>(path));
+        helper(candidates, target, i+1, path);        
+        //action
+        path.add(candidates[i]);
+        //recurse
+        helper(candidates, target-candidates[i], i, path);
+        //backtrack
+        path.remove(path.size()-1);
     }
 }
