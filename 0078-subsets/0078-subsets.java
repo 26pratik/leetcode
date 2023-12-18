@@ -1,30 +1,19 @@
-//TC: O (n * 2*n)
-//SC: O()
+//TC : O(n*(2^n))
 class Solution {
-    
-    List<List<Integer>> result;
     public List<List<Integer>> subsets(int[] nums) {
         
-        this.result = new ArrayList<>();
-        helper(nums, 0, new ArrayList<>());
-        return result;
-    }
-    
-    //O(2^n )
-    private void helper(int[] nums, int pivot, List<Integer> path) {
+        List<List<Integer>> result = new ArrayList<>();
+        result.add(new ArrayList<>());
         
-        //base
-        //O(n)
-        
-        if(pivot == nums.length) {
-            result.add(new ArrayList<>(path));
-            return;
+        for(int i=0; i<nums.length; i++) {
+            int size = result.size();
+            for(int j=0; j<size; j++) {
+                List<Integer> list = new ArrayList<>(result.get(j));
+                list.add(nums[i]);
+                result.add(list);
+            }
         }
         
-        helper(nums, pivot+1, path);
-        
-        path.add(nums[pivot]);
-        helper(nums, pivot+1, path);
-        path.remove(path.size()-1);
+        return result;
     }
 }
