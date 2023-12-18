@@ -11,10 +11,9 @@ class Solution {
     private void helper(int[] nums, int pivot, List<Integer> path) {
         
         //base
-        if(pivot > nums.length) return;
-        
         result.add(new ArrayList<>(path));
-        
+        if(pivot == nums.length) return;
+
         for(int i=pivot; i<nums.length; i++) {
             path.add(nums[i]);
             helper(nums, i+1, path);
