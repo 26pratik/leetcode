@@ -1,3 +1,5 @@
+//TC: O (n * 2*n)
+//SC: O()
 class Solution {
     
     List<List<Integer>> result;
@@ -8,16 +10,21 @@ class Solution {
         return result;
     }
     
+    //O(2^n )
     private void helper(int[] nums, int pivot, List<Integer> path) {
         
         //base
-        result.add(new ArrayList<>(path));
-        if(pivot == nums.length) return;
-
-        for(int i=pivot; i<nums.length; i++) {
-            path.add(nums[i]);
-            helper(nums, i+1, path);
-            path.remove(path.size()-1);
+        //O(n)
+        
+        if(pivot == nums.length) {
+            result.add(new ArrayList<>(path));
+            return;
         }
+        
+        helper(nums, pivot+1, path);
+        
+        path.add(nums[pivot]);
+        helper(nums, pivot+1, path);
+        path.remove(path.size()-1);
     }
 }
