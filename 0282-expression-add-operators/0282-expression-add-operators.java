@@ -6,12 +6,14 @@ class Solution {
         
         this.result = new ArrayList<>();
         
-        helper(num, target, 0, 0, "", 0);
+        helper(num, target, 0, 0, new StringBuilder(), 0);
         
         return result;
     }
     
-    private void helper(String num, int target, long calc, long tail, String path, int pivot) {
+    private void helper(String num, int target, long calc, long tail, StringBuilder path, int pivot) {
+        
+        int len = path.length();
         
         if(pivot == num.length() && calc == target)
             result.add(new String(path));
@@ -23,17 +25,28 @@ class Solution {
             long curr = Long.parseLong(num.substring(pivot, i+1));
             
             if(pivot == 0) {
-                helper(num, target, curr, curr, path+curr, i+1);
+                path.append(curr);
+                helper(num, target, curr, curr, path, i+1);
+                path.setLength(len);
             }
             else {
                 //+
-                helper(num, target, calc+curr, curr, path+"+"+curr, i+1);
+                path.append("+");
+                path.append(curr);
+                helper(num, target, calc+curr, curr, path, i+1);
+                path.setLength(len);
                 
                 //-
-                helper(num, target, calc-curr, -curr, path+"-"+curr, i+1);
+                path.append("-");
+                path.append(curr);               
+                helper(num, target, calc-curr, -curr, path, i+1);
+                path.setLength(len);
                 
                 //*
-                helper(num, target, (calc-tail)+(tail*curr), tail*curr, path+"*"+curr,i+1);
+                path.append("*");
+                path.append(curr);               
+                helper(num, target, (calc-tail)+(tail*curr), tail*curr, path,i+1);
+                path.setLength(len);
             }
             
         }
