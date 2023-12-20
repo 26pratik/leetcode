@@ -7,29 +7,33 @@ class Solution {
         
         this.result = new ArrayList<>();
         this.path = new ArrayList<>();
-        helper(s, 0, new ArrayList<>());
+        helper(s, 0, 0, 0);
         return result;
     }
     
-    private void helper(String s, int pivot, List<String> path) {
+    private void helper(String s, int pivot, int i, int sum) {
         
         //base
-        if(pivot == s.length())
-            result.add(new ArrayList<>(path));
-        //logic
+        if(i == s.length()) {
+            if(sum == s.length())
+                result.add(new ArrayList<>(path));
+            return;
+        }
         
-        for(int i=pivot; i<s.length(); i++) {
-            
-            String sub = s.substring(pivot, i+1);
-            
-            if(isPalindrome(sub)) {
-                //action
-                path.add(sub);
-                //recurse
-                helper(s, i+1, path);
-                //backtrack
-                path.remove(path.size()-1);
-            }
+        //logic
+        //don't choose
+        helper(s, pivot, i+1, sum);
+        
+        //choose
+        String sub = s.substring(pivot, i+1);
+
+        if(isPalindrome(sub)) {
+            //action
+            path.add(sub);
+            //recurse
+            helper(s, i+1, i+1, sum+sub.length());
+            //backtrack
+            path.remove(path.size()-1);
         }
     }
     
