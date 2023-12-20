@@ -1,10 +1,12 @@
 class Solution {
     
     List<List<String>> result;
+    List<String> path;
     
     public List<List<String>> partition(String s) {
         
         this.result = new ArrayList<>();
+        this.path = new ArrayList<>();
         helper(s, 0, new ArrayList<>());
         return result;
     }
