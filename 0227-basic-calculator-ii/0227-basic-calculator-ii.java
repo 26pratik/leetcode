@@ -1,10 +1,10 @@
 class Solution {
     public int calculate(String s) {
         
-        int result = 0;
         int currNum = 0;
         char lastSign = '+';
-        Stack<Integer> st = new Stack<>();
+        int calc = 0;
+        int tail = 0;
         
         for(int i=0; i<s.length(); i++) {
             
@@ -16,18 +16,20 @@ class Solution {
             
             if((!Character.isDigit(c) && c != ' ') || (i == s.length()-1)) {
                 if(lastSign == '+') {
-                    st.push(currNum);
+                    calc += currNum;
+                    tail = currNum;
                 }
                 else if(lastSign == '-') {
-                    st.push(-currNum);
+                    calc -= currNum;
+                    tail = -currNum;
                 }
                 else if(lastSign == '*') {
-                    int n = st.pop();
-                    st.push(currNum * n);
+                    calc = calc - tail + (tail * currNum);
+                    tail = tail * currNum;
                 }
                 else if(lastSign == '/') {
-                    int n = st.pop();
-                    st.push(n / currNum);
+                    calc = calc - tail + (tail / currNum);
+                    tail = tail / currNum;
                 }
                 
                 currNum = 0;
@@ -35,13 +37,6 @@ class Solution {
             }
         }
         
-        
-        
-        while(!st.isEmpty()) {
-            System.out.println(st.peek());
-            result += st.pop();
-        }
-        
-        return result;
+        return calc;
     }
 }
