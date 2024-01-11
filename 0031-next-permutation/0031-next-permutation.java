@@ -6,22 +6,15 @@ class Solution {
         
         int i = n-2;
         
-        while(i>=0) {
-            if(nums[i] >= nums[i+1]) i--;
-            else break;
-        }
+        while(i>=0 && nums[i] >= nums[i+1]) i--; //Find the breach
         
-        if(i>=0) {
+        if(i>=0) { //If breach is there, find the immediate bigger number and swap
             int j = n-1;
-            while(j >= 0 && j>i) {
-                if(nums[j] <= nums[i]) j--;
-                else break;
-            }
-            
+            while(nums[j] <= nums[i])  j--;           
             swap(nums, i, j);
         }
         
-        reverse(nums, i+1, n-1);
+        reverse(nums, i+1, n-1); //reverse
     }
     
     private void swap(int[] nums, int i, int j) {
