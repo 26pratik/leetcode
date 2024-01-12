@@ -4,20 +4,23 @@ class Solution {
         int n = nums.length;
         if(n == 1) return;
         k = k%n;
-        int[] arr = new int[n];
-        int j=0;
-        for(int i=n-k; i<n; i++) {
-            arr[j]  = nums[i];
-            j++;
-        }
         
-        for(int i=0; i<n-k; i++) {
-            arr[j] = nums[i];
-            j++;
+        reverse(nums, 0, n-k-1);
+        reverse(nums, n-k, n-1);
+        reverse(nums, 0, n-1);
+    }
+    
+    private void reverse(int[] nums, int i, int j) {
+        while(i<j) {
+            swap(nums, i, j);
+            i++;
+            j--;
         }
-        
-        for(int i=0; i<n; i++) 
-            nums[i] = arr[i];
-            
+    }
+    
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 }
