@@ -13,15 +13,15 @@ class Solution {
         
         int l = 0; int lw = 0;
         while(l < maxId) {
-            if(lw > height[l]) result += lw - height[l];
-            else lw = height[l];
+            if(lw < height[l]) lw = height[l];
+            else result += lw - height[l];
             l++;
         }
         
-        int r = n-1; int rw = 0;
+        int r = n-1; int rw = height[n-1];
         while(r > maxId) {
-            if(rw > height[r]) result += rw - height[r];
-            else rw = height[r];
+            if(rw < height[r]) rw = height[r];
+            else result += rw - height[r];
             r--;
         }
         
