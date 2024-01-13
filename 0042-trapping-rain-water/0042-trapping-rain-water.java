@@ -6,7 +6,7 @@ class Solution {
         int l = 0; int lw = height[0];
         int r = n-1; int rw = height[n-1];
         while(l <= r) {
-            if(lw <= rw) {
+            if(lw < rw) {
                 if(lw < height[l]) lw = height[l];
                 else result += lw - height[l];
                 l++;                
