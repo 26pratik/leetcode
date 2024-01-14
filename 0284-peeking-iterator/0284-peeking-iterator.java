@@ -4,18 +4,16 @@ import java.util.*;
 class PeekingIterator implements Iterator<Integer> {
     
     Iterator<Integer> iter;
-    Integer peek;
+    Integer peek = null;
 	public PeekingIterator(Iterator<Integer> iterator) {
 	    // initialize any member here.
-	    iter = iterator;
+	    if(iterator.hasNext()) 
+            peek = iterator.next();
+        iter = iterator;
 	}
 	
     // Returns the next element in the iteration without advancing the iterator.
 	public Integer peek() {
-        if(peek == null) {
-            if(!iter.hasNext()) throw new NoSuchElementException();
-            peek = iter.next();
-        }
         return peek;
 	}
 	
@@ -23,17 +21,15 @@ class PeekingIterator implements Iterator<Integer> {
 	// Override them if needed.
 	@Override
 	public Integer next() {
-	    if(peek == null) {
-            if(!iter.hasNext()) throw new NoSuchElementException();
-            return iter.next();
-        }
+	    if(peek == null) throw new NoSuchElementException();
         Integer result = peek;
         peek = null;
+        if(iter.hasNext()) peek = iter.next();
         return result;
 	}
 	
 	@Override
 	public boolean hasNext() {
-	    return peek != null || iter.hasNext();
+	    return peek != null;
 	}
 }
