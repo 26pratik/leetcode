@@ -28,23 +28,20 @@ class Solution {
         Node copyCurr = copyHead;
         map.put(curr, copyHead);
         
-        while(curr.next != null) {
-            copyCurr.next = new Node(curr.next.val);
-            map.put(curr.next, copyCurr.next);
+        while(curr != null) {
+            copyCurr.next = clone(curr.next);
+            copyCurr.random = clone(curr.random);
             curr = curr.next;
             copyCurr = copyCurr.next;
         }
         
-        curr = head;
-        copyCurr = copyHead;
-        
-        while(curr != null) {
-            if(curr.random != null)
-                copyCurr.random = map.get(curr.random);
-            curr = curr.next;
-            copyCurr = copyCurr.next;            
-        }
-        
         return copyHead;
+    }
+    
+    private Node clone(Node node) {
+        if(node == null) return null;
+        if(!map.containsKey(node))
+            map.put(node, new Node(node.val));
+        return map.get(node);
     }
 }
