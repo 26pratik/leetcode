@@ -23,11 +23,10 @@ class Solution {
         
         map = new HashMap<>();
         
-        Node copyHead = new Node(head.val);
-        map.put(head, copyHead);
-        
-        Node copyCurr = copyHead;
         Node curr = head;
+        Node copyHead = new Node(curr.val);
+        Node copyCurr = copyHead;
+        map.put(curr, copyHead);
         
         while(curr.next != null) {
             copyCurr.next = new Node(curr.next.val);
@@ -40,12 +39,10 @@ class Solution {
         copyCurr = copyHead;
         
         while(curr != null) {
-            if(curr.random != null) {
+            if(curr.random != null)
                 copyCurr.random = map.get(curr.random);
-            }
-            
             curr = curr.next;
-            copyCurr = copyCurr.next;
+            copyCurr = copyCurr.next;            
         }
         
         return copyHead;
