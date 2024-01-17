@@ -1,49 +1,51 @@
+
+//TC: 
+//SC:
+//Topological sort in a directed acyclic graph 
 class Solution {
+    
+    HashMap<Integer, List<Integer>> map;
+    boolean[] visited;
+    boolean[] path;
+    
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         
-        int[] indegrees = new int[numCourses];
-        HashMap<Integer, List<Integer>> map = new HashMap<>();
-        int count = 0;
+        map = new HashMap<>();
+        visited = new boolean[numCourses];
+        path = new boolean[numCourses];
         
-        for(int[] pr: prerequisites) {
-            
-            indegrees[pr[0]]++;
-            
-            if(!map.containsKey(pr[1])) 
-                map.put(pr[1], new ArrayList<>());
-            map.get(pr[1]).add(pr[0]);
+        for(int i=0; i<prerequisites.length; i++) {
+            if(!map.containsKey(prerequisites[i][0]))
+                map.put(prerequisites[i][0], new ArrayList<>());
+            map.get(prerequisites[i][0]).add(prerequisites[i][1]);
         }
-        
-        Queue<Integer> q = new LinkedList<>();
         
         for(int i=0; i<numCourses; i++) {
-            if(indegrees[i] == 0) {
-                q.add(i);
-                count++;
+            if(!visited[i] && hasCycle(i))
+                return false;
+        }
+        
+        return true;
+    }
+    
+    private boolean hasCycle(int course) {
+        
+        //base
+        if(path[course]) return true;
+        if(visited[course]) return false;
+        
+        //logic
+        path[course] = true;
+        List<Integer> list = map.get(course);
+        if(list != null) {
+            for(int i=0; i<list.size(); i++) {
+                if(!visited[list.get(i)] && hasCycle(list.get(i)))
+                    return true;
             }
         }
         
-        if(count == numCourses) return true;
-        
-        while(!q.isEmpty()) {
-            
-            Integer course = q.poll();
-            List<Integer> list = map.get(course);
-            
-            if(list != null) {
-                for(Integer i: list) {
-
-                    indegrees[i]--;
-
-                    if(indegrees[i] == 0) {
-                        q.add(i);
-                        count++;
-
-                        if(count == numCourses) return true;
-                    }
-                }                
-            }
-        }
+        path[course] = false;
+        visited[course] = true;
         
         return false;
     }
