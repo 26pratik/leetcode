@@ -39,7 +39,7 @@ class Solution {
         List<Integer> list = map.get(course);
         if(list != null) {
             for(int i=0; i<list.size(); i++) {
-                if(!visited[list.get(i)] && hasCycle(list.get(i)))
+                if(hasCycle(list.get(i)))
                     return true;
             }
         }
