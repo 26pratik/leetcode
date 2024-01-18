@@ -3,14 +3,17 @@ class Solution {
         
         int n = temperatures.length;
         int[] result = new int[n];
-        Stack<Integer> st = new Stack<>();
-
-        for(int i=0; i<n; i++) {
-            while(!st.isEmpty() && temperatures[st.peek()] < temperatures[i]) {
-                int prev = st.pop();
-                result[prev] = i-prev;
+        int hottest = 0;
+        for(int i=n-1; i>=0; i--) {
+            if(temperatures[i] >= hottest) {
+                hottest = temperatures[i];
+                continue;
             }
-            st.push(i);
+            
+            int days = 1;
+            while(temperatures[i+days] <= temperatures[i])
+                days += result[i+days];
+            result[i] = days;
         }
 
         return result;
