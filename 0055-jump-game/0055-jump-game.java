@@ -1,10 +1,10 @@
 class Solution {
     
-    HashSet<Integer> set;
+    HashMap<Integer, Boolean> map;
     public boolean canJump(int[] nums) {
         
         if(nums.length <= 1) return true;
-        this.set = new HashSet<>();
+        this.map = new HashMap<>();
         return dfs(nums, 0);
     }
     
@@ -12,14 +12,17 @@ class Solution {
         
         //base
         if(idx >= nums.length-1) return true;
-        if(set.contains(idx)) return false;
+        if(map.containsKey(idx)) return map.get(idx);
         //logic
         for(int i=1; i<=nums[idx]; i++) {
             int newIdx = idx+i;
-            if(dfs(nums, newIdx))
+            if(dfs(nums, newIdx)) {
+                map.put(newIdx, true);
                 return true;
+            }
+                
         }
-        set.add(idx);
+        map.put(idx, false);
         return false;
     }
 }
