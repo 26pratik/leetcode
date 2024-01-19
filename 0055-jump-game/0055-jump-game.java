@@ -1,25 +1,25 @@
 class Solution {
+    
+    HashSet<Integer> set;
     public boolean canJump(int[] nums) {
         
         if(nums.length <= 1) return true;
-        Queue<Integer> q = new LinkedList<>();
-        HashSet<Integer> set = new HashSet<>();
-        q.add(0);
-        set.add(0);
+        this.set = new HashSet<>();
+        return dfs(nums, 0);
+    }
+    
+    private boolean dfs(int[] nums, int idx) {
         
-        while(!q.isEmpty()) {
-            int idx = q.poll();
-            for(int i=1; i<=nums[idx]; i++) {
-                int newIdx = i + idx;
-                if(newIdx >= nums.length-1) return true;
-                if(!set.contains(newIdx)) {
-                    q.add(newIdx);
-                    set.add(newIdx);
-                }
-                    
-            }
+        //base
+        if(idx >= nums.length-1) return true;
+        if(set.contains(idx)) return false;
+        //logic
+        for(int i=1; i<=nums[idx]; i++) {
+            int newIdx = idx+i;
+            if(dfs(nums, newIdx))
+                return true;
         }
-        
+        set.add(idx);
         return false;
     }
 }
