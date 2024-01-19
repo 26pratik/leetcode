@@ -1,10 +1,10 @@
 class Solution {
     
-    HashMap<Integer, Boolean> map;
+    int[] arr;
     public boolean canJump(int[] nums) {
         
         if(nums.length <= 1) return true;
-        this.map = new HashMap<>();
+        this.arr = new int[nums.length];  //0:unexplored, 1:explored and true, -1: explored nad false 
         return dfs(nums, 0);
     }
     
@@ -12,16 +12,24 @@ class Solution {
         
         //base
         if(idx >= nums.length-1) return true;
-        if(map.containsKey(idx)) return map.get(idx);
+        if(arr[idx] == 1) return true;
+        if(arr[idx] == -1) return false;
         
         //logic
         for(int i=1; i<=nums[idx]; i++) {
             int newIdx = idx+i;
-            if(!map.containsKey(newIdx)) 
-                map.put(newIdx, dfs(nums, newIdx));
-            if(map.get(newIdx)) return true;
+            if(arr[newIdx] == 0) {
+                boolean temp = dfs(nums, newIdx);
+                if(temp) {
+                    arr[newIdx] = 1;
+                    return true;
+                }
+                else {
+                    arr[newIdx] = -1;
+                }
+            }
         }
-        map.put(idx, false);
+        arr[idx] = -1;
         return false;
     }
 }
