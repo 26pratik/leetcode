@@ -13,14 +13,13 @@ class Solution {
         //base
         if(idx >= nums.length-1) return true;
         if(map.containsKey(idx)) return map.get(idx);
+        
         //logic
         for(int i=1; i<=nums[idx]; i++) {
             int newIdx = idx+i;
-            if(dfs(nums, newIdx)) {
-                map.put(newIdx, true);
-                return true;
-            }
-                
+            if(!map.containsKey(newIdx)) 
+                map.put(newIdx, dfs(nums, newIdx));
+            if(map.get(newIdx)) return true;
         }
         map.put(idx, false);
         return false;
