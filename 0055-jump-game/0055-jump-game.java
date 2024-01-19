@@ -3,28 +3,17 @@ class Solution {
     int[] arr;
     public boolean canJump(int[] nums) {
         
-        if(nums.length <= 1) return true;
-        this.arr = new int[nums.length];  //0:unexplored, 1:explored and true, -1: explored nad false 
-        int result = dfs(nums, 0);
-        if(result == 1) return true;
-        return false;
-    }
-    
-    private int dfs(int[] nums, int idx) {
+        int n = nums.length;
         
-        //base
-        if(idx >= nums.length-1) return 1;
-        if(arr[idx] != 0) return arr[idx];
+        if(n <= 1) return true;
         
-        //logic
-        for(int i=1; i<=nums[idx]; i++) {
-            int newIdx = idx+i;
-            if(arr[newIdx] == 0) {
-                arr[newIdx] = dfs(nums, newIdx);
-            }
-            if(arr[newIdx] == 1) return 1;
+        int target = n-1;
+        
+        for(int i=n-2; i>=0; i--) {
+            if(i+nums[i] >= target)
+                target = i;
         }
-        arr[idx] = -1;
-        return -1;
+        
+        return target == 0;
     }
 }
