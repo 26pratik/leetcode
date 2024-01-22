@@ -1,8 +1,6 @@
 class Solution {
     public int leastInterval(char[] tasks, int n) {
         
-        if(n == 0) return tasks.length;
-        
         int maxFreq = 0;
         int maxCount = 0;
         HashMap<Character, Integer> map = new HashMap<>(); 
@@ -21,7 +19,12 @@ class Solution {
                 maxCount++;
             }
         }
-        int result = ((n+1)*(maxFreq-1) + maxCount);
-        return tasks.length < result ? result : tasks.length;
+        
+        int partitions = maxFreq - 1;
+        int availableSlots = (n - (maxCount-1)) * partitions;
+        int pendingSlots = tasks.length - (maxFreq * maxCount);
+        int idleSlots = Math.max(0, availableSlots - pendingSlots);
+        
+        return tasks.length + idleSlots;
     }
 }
