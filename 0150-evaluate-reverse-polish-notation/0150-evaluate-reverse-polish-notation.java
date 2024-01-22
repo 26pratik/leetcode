@@ -1,37 +1,28 @@
 class Solution {
+    
+	private static final HashMap<String, BiFunction<Integer, Integer, Integer>> OPERATIONS = new HashMap<>();
+	
+	static {
+		OPERATIONS.put("+", (a,b) -> a+b);
+		OPERATIONS.put("-", (a,b) -> a-b);
+		OPERATIONS.put("*", (a,b) -> a*b);
+		OPERATIONS.put("/", (a,b) -> a/b);
+	}
+    
     public int evalRPN(String[] tokens) {
         
         Stack<Integer> st = new Stack<>();
-        HashSet<String> set = new HashSet<>();
-        set.add("+");
-        set.add("-");
-        set.add("*");
-        set.add("/");
         
         for(String el: tokens) {
-            if(!set.contains(el)) {
+            if(!OPERATIONS.containsKey(el)) {
                 st.push(Integer.parseInt(el));
             }
             else {
                 int second = st.pop();
                 int first = st.pop();
-                
-                if(el.equals("+")) {
-                    int result = first + second;
-                    st.push(result);
-                }
-                else if(el.equals("-")) {
-                    int result = first - second;
-                    st.push(result);                    
-                }
-                else if(el.equals("*")) {
-                    int result = first * second;
-                    st.push(result);                    
-                }
-                else if(el.equals("/")) {
-                    int result = first / second;
-                    st.push(result);                    
-                }
+                BiFunction<Integer, Integer, Integer> operator = OPERATIONS.get(el);
+                int value = operator.apply(first, second);
+                st.push(value);
             }
         }
         
