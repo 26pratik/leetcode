@@ -3,13 +3,10 @@ class Solution {
         
         int maxFreq = 0;
         int maxCount = 0;
-        HashMap<Character, Integer> map = new HashMap<>(); 
-        
+        int[] arr = new int[26];
         for(char c: tasks) {
-            if(!map.containsKey(c))
-                map.put(c, 0);
-            int freq = map.get(c) + 1;
-            map.put(c, freq);
+            arr[c-'A']++;
+            int freq = arr[c-'A'];
             
             if(freq > maxFreq) {
                 maxFreq = freq;
